@@ -3,7 +3,7 @@ import csv, sqlite3
 con = sqlite3.connect('washington.db')
 cur = con.cursor()
 cur.execute("CREATE TABLE poverty(id INTEGER PRIMARY KEY AUTOINCREMENT," +
-"county TEXT, num_pov_all INTEGER, percent_pov_all INTEGER, num_pov_child INTEGER,"
+"county TEXT, num_pov_all INTEGER, percent_pov_all INTEGER, num_pov_child INTEGER," +
 "percent_pov_child INTEGER);") # use your column names here
 
 with open('PovertyEstimates.csv','r') as fin: # `with` statement available in 2.5+
@@ -22,7 +22,7 @@ with open('PovertyEstimates.csv','r') as fin: # `with` statement available in 2.
         row = list(row)
         if row[0] == "WA" and row[1] != 'Washington':
             del row[0]
-            cur.execute("INSERT INTO poverty("
+            cur.execute("INSERT INTO poverty(" +
 "county, num_pov_all, percent_pov_all, num_pov_child, percent_pov_child)" +
             " VALUES (?, ?, ?, ?, ?);", row)
 

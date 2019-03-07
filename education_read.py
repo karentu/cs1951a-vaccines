@@ -25,7 +25,7 @@ with open('Education.csv','r') as fin: # `with` statement available in 2.5+
         row = list(row)
         if row[0] == "WA" and row[1] != 'Washington':
             del row[0]
-            cur.execute("INSERT INTO education("
+            cur.execute("INSERT INTO education(" +
 "county, rural_urban, " +
 "urban_influence, less_than_high_school, high_school, some_college,"
 "bachelors)" +
