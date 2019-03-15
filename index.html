@@ -3,9 +3,106 @@
 <head>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <title>CS1951A Project Blog: Vaccinations</title>
 </head>
-<body>
-  <h1> Hello! This is our project blog!</h1>
-Coming Soon!
+<body data-spy="scroll" data-target=".navbar" data-offset="90" style= "background-color: #DCF1F7">
+  <div id="navigation">
+    <nav class="navbar navbar-expand-sm navbar-light fixed-top" style="background-color: rgba(255, 255, 255, 0.9)">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#origNavBar" aria-controls="origNavBar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id = "origNavBar">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#section1">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#section2">Blog Posts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/karentu/cs1951a-vaccines">Code
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </li>
+        </ul>
+    </nav>
+  </div>
+  <div id="wrapper1">
+      <div id="section1" class="container" style="padding-top:140px;padding-bottom:70px">
+        <div id="about">
+          <h3>
+            CS1951A Term Project: Vaccines
+          </h3>
+          <p id="description">
+            Inspired by the recent measles outbreak in Washington, we’ve decided
+             to use data science to explore the relationship between child
+             vaccination rate, education level, median salary, and a variety of
+             other factors in hopes to determine what factors could lead
+             someone to become an "anti-vaxxer." <br/>
+            <br/>
+            We are currently working on: exploratory data analysis!
+          </p>
+        </div>
+      </div>
+      <div id="section2" class="container" style="padding-top:140px;padding-bottom:70px">
+        <div class="blogpost" id="blog_post1">
+          <h1> First Blog Post </h1>
+          Our first check-in was last week and went great. We talked about our
+          current progress and discussed our next steps. After we selected the
+          data we’d be looking at, we created scripts to parse and clean the
+          data and put it into our SQL database. Each data set was placed in its
+          own table. The different data we looked at included: vaccination
+          rates of schools and counties in different years, unemployment rates,
+          poverty estimations and education. Issues that we ran into while
+          cleaning the data is some of the data sets we were looking at did not
+          contain relevant  information after cleaning. Likewise, we ran into
+          strange issues where Excel would reformat some of the entry values
+          in the csv into dates (e.g. 3-5 to indicated grades 3 to 5 became March 5th).<br/>
+          <img class="content-img" width = "75%" src="assets\origfile.png" alt="image of csv file">
+          <br/>
+          For the vaccination datasets, we obtained csv files from the Data.Gov
+          website. More specifically, we used the datasets for the state of
+          Washington, from Kindergarten to 12th Grade for the years 2014-2015,
+          2015-2016 and 2016-2017. The data from each dataset was inserted
+          into the same table with a “Year” field in order to distinguish
+          which year’s dataset a particular entry originated from. In
+          addition, because many of the schools had entries in one or more
+          year’s datasets, a separate table corresponding to each school was
+          created with a corresponding ID. These IDs were then used in the
+          overall vaccination table as a foreign key field in order to link
+          the vaccination table to the school table.<br/>
+          <br/>
+          <img class="content-img" width = "75%" src="assets\columns.png" alt="image of column titles">
+          <br/>
+          For the education, poverty, and unemployment datasets, we obtained csv
+          files from USDA.gov. This had data for every county in the entire USA,
+          so we wrote a script to read through the CSV line by line and only get
+          the data from the state of Washington. Then, we inserted this data
+          into our database. <br/>
+          <img class="content-img" width = "75%" src="assets\sqlquery.png" alt="image of sql query">
+          <br/>
+          <b>Next Steps</b><br/>
+          <br/>
+          Our next steps are to finish cleaning and collecting some more data on
+          political/racial demographics, population changes and food desert areas
+          if we can find this data. We also wanted to consolidate and combine all
+          the data into fewer tables/CSV files by associating everything with a
+          county. This way, we can start to do one visualization for our midterm
+          report. One idea for a visualization could be to do a map visualization
+          of the vaccination rates. We also wanted to get one ML/stats thing done,
+          such as a multiple linear regression of some of the data.<br/>
+        </div>
+      </div>
+    </div>
 </body>
