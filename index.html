@@ -38,23 +38,33 @@
         </ul>
     </nav>
   </div>
-  <div id="wrapper1">
+  <div id="wrapper1" style ="background-color:#565656">
       <div id="section1" class="container" style="padding-top:140px;padding-bottom:70px">
-        <div id="about">
+        <div id="about" style="color:#fff">
           <h3>
             CS1951A Term Project: Vaccines
           </h3>
           <p id="description">
+            <br/>
+            Modern medicine has effectively eradicated a number of serious illnesses
+            through the widespread adoption of vaccines. Recently, however, a number
+            of these diseases have made a comeback, perhaps attributable to the
+            "anti-vaxxer" movement. Among other pseudoscientific beliefs, members
+            of this movement believe that vaccinations cause anything from allergies
+            to developmental disorders. As a result, some serious diseases, such
+            as measles, mumps, smallpox, and polio have made a comeback. <br/>
+            <br/>
             Inspired by the recent measles outbreak in Washington, we’ve decided
              to use data science to explore the relationship between child
              vaccination rate, education level, median salary, and a variety of
-             other factors in hopes to determine what factors could lead
+             other factors in hopes to determine what leads
              someone to become an "anti-vaxxer." <br/>
             <br/>
             We are currently working on: exploratory data analysis!
           </p>
         </div>
       </div>
+    </div>
       <div id="section2" class="container" style="padding-top:140px;padding-bottom:70px">
         <div class="blogpost" id="blog_post1">
           <h1> First Blog Post </h1>
@@ -83,14 +93,14 @@
           overall vaccination table as a foreign key field in order to link
           the vaccination table to the school table.<br/>
           <br/>
-          <img class="content-img" width = "75%" src="assets\columns.png" alt="image of column titles">
+          <img class="content-img" width = "50%" src="assets\columns.png" alt="image of column titles">
           <br/>
           For the education, poverty, and unemployment datasets, we obtained csv
           files from USDA.gov. This had data for every county in the entire USA,
           so we wrote a script to read through the CSV line by line and only get
           the data from the state of Washington. Then, we inserted this data
           into our database. <br/>
-          <img class="content-img" width = "75%" src="assets\sqlquery.png" alt="image of sql query">
+          <img class="content-img" width = "50%" src="assets\sqlquery.png" alt="image of sql query">
           <br/>
           <b>Next Steps</b><br/>
           <br/>
@@ -104,5 +114,4 @@
           such as a multiple linear regression of some of the data.<br/>
         </div>
       </div>
-    </div>
 </body>

@@ -7,6 +7,11 @@ body{
   text-align: center;
 }
 
+#section1{
+  background-image: url("assets/vaccine.jpg");
+  color : #fffff;
+}
+
 .blogpost{
-  
+
 }
