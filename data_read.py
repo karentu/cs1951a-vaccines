@@ -59,6 +59,7 @@ def main():
             to_db_lst = list(to_db)
             for row in to_db_lst:
                 row = list(row)
+                row[-2] = row[-2].lower().capitalize()
                 if (row[2] == 'Y'): # check to see if it was reported
                     del row[2]
                     school_year, _ = row[1].split('-')

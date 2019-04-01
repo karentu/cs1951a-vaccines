@@ -27,6 +27,7 @@ with open('race.csv','r') as fin: # `with` statement available in 2.5+
     for row in to_db_lst:
         row = list(row)
         if row[0] != "Washington":
+            row[0] = row[0].replace(" County", "")
             cur.execute("INSERT INTO raceEthnicity(" +
     "county, totalPop, white, black, native," +
     "asian, pacificIslander, otherRace, multiracial," +

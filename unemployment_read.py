@@ -35,7 +35,7 @@ with open('Unemployment.csv','r') as fin: # `with` statement available in 2.5+
         row = list(row)
         if row[0] == "WA" and row[1] != 'Washington':
             del row[0]
-            row[0] = row[0].replace(", WA", "")
+            row[0] = row[0].replace(" County, WA", "")
             cur.execute("INSERT INTO unemployment(" +
 "county, labor_total_2014, employed_2014, unemployed_2014," + 
 "labor_total_2015, employed_2015, unemployed_2015," + 

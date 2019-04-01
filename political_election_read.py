@@ -19,6 +19,8 @@ with open('2016election.csv','r') as fin: # `with` statement available in 2.5+
     to_db_lst = list(to_db)
     for row in to_db_lst:
         row = list(row)
+        row[0] = row[0].replace(" County", "")
+
         cur.execute("INSERT INTO politicalElection(" +
 "county, clinton, " +
 "trump, otherVotes, totalVotes)" +

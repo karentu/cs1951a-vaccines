@@ -22,6 +22,7 @@ with open('PovertyEstimates.csv','r') as fin: # `with` statement available in 2.
         row = list(row)
         if row[0] == "WA" and row[1] != 'Washington':
             del row[0]
+            row[0] = row[0].replace(" County", "")
             cur.execute("INSERT INTO poverty(" +
 "county, num_pov_all, percent_pov_all, num_pov_child, percent_pov_child)" +
             " VALUES (?, ?, ?, ?, ?);", row)
