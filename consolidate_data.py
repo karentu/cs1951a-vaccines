@@ -1,18 +1,8 @@
 import csv, sqlite3
 
-# con = sqlite3.connect('washington.db')
-# c = con.cursor()
-
-
-# #to export as csv file
-# with open("wub.csv", "wb") as write_file:
-#     cursor = connection.cursor()
-#     for row in cursor.execute("SELECT * FROM table"):
-#         writeRow = " ".join([str(i) for i in row])
-#         write_file.write(writeRow.encode())
-
-# c.close()
-# con.close()
+# BEFORE RUNNING THIS run python3 on education_read, poverty_read, data_read,
+#unemployment_read,  median_household_income_data_read, political_election_read,
+#racial_demographics_read 
 
 
 # Run your query, the result is stored as `data`
