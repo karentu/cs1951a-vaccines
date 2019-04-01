@@ -3,8 +3,8 @@ import csv, sqlite3
 con = sqlite3.connect('washington.db')
 cur = con.cursor()
 cur.execute("CREATE TABLE raceEthnicity(id INTEGER PRIMARY KEY AUTOINCREMENT," +
-"county TEXT, total INTEGER, white INTEGER, black INTEGER, native INTEGER," +
-"asian INTEGER, pacificIslander INTEGER, other INTEGER, multiracial INTEGER," +
+"county TEXT, totalPop INTEGER, white INTEGER, black INTEGER, native INTEGER," +
+"asian INTEGER, pacificIslander INTEGER, otherRace INTEGER, multiracial INTEGER," +
 "hispanicLatino INTEGER, whiteAlone INTEGER);") # use your column names here
 
 with open('race.csv','r') as fin: # `with` statement available in 2.5+
@@ -28,8 +28,8 @@ with open('race.csv','r') as fin: # `with` statement available in 2.5+
         row = list(row)
         if row[0] != "Washington":
             cur.execute("INSERT INTO raceEthnicity(" +
-    "county, total, white, black, native," +
-    "asian, pacificIslander, other, multiracial," +
+    "county, totalPop, white, black, native," +
+    "asian, pacificIslander, otherRace, multiracial," +
     "hispanicLatino, whiteAlone)" + 
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", row)
 

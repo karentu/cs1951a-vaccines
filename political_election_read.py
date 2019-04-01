@@ -4,7 +4,7 @@ con = sqlite3.connect('washington.db')
 cur = con.cursor()
 cur.execute("CREATE TABLE politicalElection(id INTEGER PRIMARY KEY AUTOINCREMENT," +
 "county TEXT, clinton INTEGER, " +
-"trump INTEGER, other INTEGER, total INTEGER);") # use your column names here
+"trump INTEGER, otherVotes INTEGER, totalVotes INTEGER);") # use your column names here
 
 with open('2016election.csv','r') as fin: # `with` statement available in 2.5+
     # csv.DictReader uses first line in file for column headings by default
@@ -21,7 +21,7 @@ with open('2016election.csv','r') as fin: # `with` statement available in 2.5+
         row = list(row)
         cur.execute("INSERT INTO politicalElection(" +
 "county, clinton, " +
-"trump, other, total)" +
+"trump, otherVotes, totalVotes)" +
             " VALUES (?, ?, ?, ?, ?);", row)
 
     to_db = tuple(to_db_lst)

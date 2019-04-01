@@ -5,7 +5,7 @@ import csv, sqlite3
 
 """
 
-file = "../data/median_household_income_estimates.csv"
+file = "median_household_income_estimates.csv"
 #create db
 con = sqlite3.connect("""washington.db""")
 cur = con.cursor()
