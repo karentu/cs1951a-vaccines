@@ -22,11 +22,11 @@ table = """CREATE TABLE median_household_income_estimates(id INTEGER PRIMARY KEY
 cur.execute(table)
 
 with open(file,'r') as fin: # `with` statement available in 2.5+
-    # skipping the first few lines
-    next(fin)
-    next(fin)
-    next(fin)
-    next(fin)
+    # # skipping the first few lines
+    # next(fin)
+    # next(fin)
+    # next(fin)
+    # next(fin)
 
     dr = csv.DictReader(fin) # comma is default delimiter
     to_db = [\
@@ -43,9 +43,11 @@ with open(file,'r') as fin: # `with` statement available in 2.5+
 
     for row in to_db:
         if (len(row[0]) > 0):
-            clean = list(map(lambda s: s.strip().replace(',',''), row))
-            str = """INSERT INTO median_household_income_estimates(county, census_2009, estimate_2010, estimate_2011, estimate_2012, estimate_2013, estimate_2014, estimate_2015, prelim_estimate_2016, projection_2017) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
-            cur.execute(str, clean)
+            # clean = list(map(lambda s: s.strip().replace(',',''), row))
+            row = list(row)
+            row[0] = row[0] + " County"
+            sql_string = """INSERT INTO median_household_income_estimates(county, census_2009, estimate_2010, estimate_2011, estimate_2012, estimate_2013, estimate_2014, estimate_2015, prelim_estimate_2016, projection_2017) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+            cur.execute(sql_string, row)
 
 con.commit()
 con.close()

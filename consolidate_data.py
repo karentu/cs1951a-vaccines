@@ -29,7 +29,9 @@ labor_total_2017, employed_2017, unemployed_2017,
 med_household_income_2017, medHHIncome_percent_state_2017,
 totalPop, white, black, native,
 asian, pacificIslander, otherRace, multiracial,
-hispanicLatino, whiteAlone
+hispanicLatino, whiteAlone,
+census_2009, estimate_2010, estimate_2011, estimate_2012, estimate_2013,
+ estimate_2014, estimate_2015, prelim_estimate_2016, projection_2017
 FROM education as e INNER JOIN politicalElection as pe
 ON e.county = pe.county
 INNER JOIN poverty as p
@@ -37,7 +39,9 @@ ON e.county = p.county
 INNER JOIN unemployment as u
 ON e.county = u.county
 INNER JOIN raceEthnicity as r
-on e.county = r.county;"""
+on e.county = r.county
+INNER JOIN median_household_income_estimates as m
+on e.county = m.county"""
     cur.execute(sql)
     data = cur.fetchall()
 
