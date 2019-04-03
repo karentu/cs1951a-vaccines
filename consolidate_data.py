@@ -8,7 +8,7 @@ import csv, sqlite3
 # Run your query, the result is stored as `data`
 with sqlite3.connect('washington.db') as conn:
     cur = conn.cursor()
-    sql = """SELECT e.id, e.county, rural_urban, urban_influence, less_than_high_school 
+    sql = """SELECT e.id, e.county, rural_urban, urban_influence, less_than_high_school, 
 high_school, bachelors, 
 clinton, trump, otherVotes, totalVotes,
 num_pov_all, percent_pov_all, num_pov_child, percent_pov_child,
@@ -21,7 +21,7 @@ totalPop, white, black, native,
 asian, pacificIslander, otherRace, multiracial,
 hispanicLatino, whiteAlone,
 census_2009, estimate_2010, estimate_2011, estimate_2012, estimate_2013,
- estimate_2014, estimate_2015, prelim_estimate_2016, projection_2017,
+estimate_2014, estimate_2015, prelim_estimate_2016, projection_2017,
 s.id, v.id, school_name, 
 school_year, k12_enrollment, 
 all_immunizations, any_exempt, medical_exempt, personal_exempt, religious_exempt, religious_mem_exempt,

@@ -7,6 +7,8 @@ cur.execute("CREATE TABLE education(id INTEGER PRIMARY KEY AUTOINCREMENT," +
 "urban_influence INTEGER, less_than_high_school INTEGER, high_school INTEGER, some_college INTEGER,"
 "bachelors INTEGER);") # use your column names here
 
+
+#rural influence code - lower is more urban
 with open('Education.csv','r') as fin: # `with` statement available in 2.5+
     # csv.DictReader uses first line in file for column headings by default
     dr = csv.DictReader(fin) # comma is default delimiter
