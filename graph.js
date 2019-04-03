@@ -1,14 +1,14 @@
 const file = "/Users/jennifernino/cs1951-proj/cs1951a-vaccines/complete.csv";
 d3.csv("https://raw.githubusercontent.com/karentu/cs1951a-vaccines/master/complete.csv",
   function(data) {
-    console.log(data[0]);
+    // console.log(data[0]);
     let year = '2015';
     let counties_2015 = new Set();
     let obj_arr = [];
 
     for (let i = 0; i < data.length; i += 1) {
       if (year === data[i].school_year) {
-        console.log(data[i].school_year)
+        // console.log(data[i].school_year)
         if (counties_2015.has(data[i].county)) {
           for (let k = 0; k < obj_arr.length; k += 1) {
             if (obj_arr[k].county === data[i].county) {
@@ -48,14 +48,14 @@ d3.csv("https://raw.githubusercontent.com/karentu/cs1951a-vaccines/master/comple
       .data(obj_arr) // call data
       .enter()
       .append("rect")
-      .attr("y", (elem, index) => {
-        return svgHeight - elem.vaccination_percent;
-      })
-      .attr("height", (elem, index) => {
+      .attr("y", function(elem,index) {
         return elem.vaccination_percent;
       })
+      .attr("height", function(elem,index) {
+        return elem.vaccination_percent * 100;
+      })
       .attr("width", barWidth - barPadding)
-        .attr("transform", (elem, index) => {
+        .attr("transform", function(elem,index) {
           let translate = [barWidth * index, 0]
           return "translate(" + translate + ")";
         });
