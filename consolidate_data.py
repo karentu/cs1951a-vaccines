@@ -22,15 +22,15 @@ asian, pacificIslander, otherRace, multiracial,
 hispanicLatino, whiteAlone,
 census_2009, estimate_2010, estimate_2011, estimate_2012, estimate_2013,
 estimate_2014, estimate_2015, prelim_estimate_2016, projection_2017,
-s.id, v.id, school_name, 
+s.id, school_name, 
 school_year, k12_enrollment, 
 all_immunizations, any_exempt, medical_exempt, personal_exempt, religious_exempt, religious_mem_exempt,
 diphtheria_tetanus, pertussis, mmr, polio, hepatitisB, varicella,
 school_district, start_grade, end_grade
 FROM education as e INNER JOIN politicalElection as pe
 ON e.county = pe.county
-INNER JOIN poverty as p
-ON e.county = p.county
+INNER JOIN poverty as pv
+ON e.county = pv.county
 INNER JOIN unemployment as u
 ON e.county = u.county
 INNER JOIN raceEthnicity as r
@@ -44,6 +44,21 @@ on v.id = s.id"""
     cur.execute(sql)
     data = cur.fetchall()
 
+
+# food and population stuff
+
+# INNER JOIN food as f
+# on e.county = f.county
+# INNER JOIN population as po
+# on e.county = po.county
+# census_2009, estimate_2010, estimate_2011, estimate_2012, estimate_2013,
+# estimate_2014, estimate_2015, prelim_estimate_2016, projection_2017,
+# census_tract, total_housing_units, low_access, low_access_low_income,
+# kids_low_access_percent, snap_number, no_vehicle_number,
+# pop_chg_2015, pop_chg_2016, pop_chg_2017,
+# birth_2015, birth_2016, birth_2017, int_mig_2015,
+# int_mig_2016, int_mig_2017, dom_mig_2015,
+# dom_mig_2016, dom_mig_2017,
 
 
 

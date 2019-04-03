@@ -5,6 +5,7 @@ import csv, sqlite3
 
 con = sqlite3.connect('washington.db')
 cur = con.cursor()
+cur.execute('DROP TABLE IF EXISTS "population";')
 cur.execute("CREATE TABLE population(id INTEGER PRIMARY KEY AUTOINCREMENT," +
 "county TEXT, pop_chg_2015 INTEGER, pop_chg_2016 INTEGER, pop_chg_2017 INTEGER," +
 "birth_2015 INTEGER, birth_2016 INTEGER, birth_2017 INTEGER, int_mig_2015 INTEGER," +
