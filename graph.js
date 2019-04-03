@@ -40,7 +40,7 @@ d3.csv("https://raw.githubusercontent.com/karentu/cs1951a-vaccines/master/comple
 
     // set the dimensions and margins of the graph
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
-        width = 1500 - margin.left - margin.right,
+        width = 1800 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
     // set the ranges
@@ -95,14 +95,41 @@ d3.csv("https://raw.githubusercontent.com/karentu/cs1951a-vaccines/master/comple
             return y(d.vaccination_percent); })
           .attr("height", function(d,i) { return height - y(d.vaccination_percent); });
 
+      svg.append("text")
+          .attr("transform",
+            "translate(" + (width/2) + " ," +
+                           (height + margin.top + 10) + ")")
+          .style("text-anchor", "middle")
+          .style("font-family", "Helvetica Neue")
+          .text("Counties in Washington");
+
       // add the x Axis
       svg.append("g")
           .attr("transform", "translate(0," + height + ")")
           .call(d3.axisBottom(x));
 
+      svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .style("font-family", "Helvetica Neue")
+            .text("Vaccination Percentage (%)");
+
       // add the y Axis
       svg.append("g")
           .call(d3.axisLeft(y));
+
+      // add the title
+      svg.append("text")
+        .attr("x", (width / 2))
+        .attr("y", 0 - (margin.top / 2) + 10)
+        .attr("text-anchor", "middle")
+        .style("font-size", "20px")
+        .style("font-family", "Helvetica Neue")
+        .style("text-decoration", "underline")
+        .text("Vaccination Rates for Washington Counties");
 
     // var svgWidth = 1000, svgHeight = 300, barPadding = 5;
     // var barWidth = (svgWidth / obj_arr.length);
