@@ -33,30 +33,123 @@ d3.csv("https://raw.githubusercontent.com/karentu/cs1951a-vaccines/master/comple
 
     for (let c = 0; c < obj_arr.length; c += 1) {
       obj_arr[c].vaccination_percent =
-      (obj_arr[c].all_immunizations * 1.0) / obj_arr[c].k12_enrollment;
+      (obj_arr[c].all_immunizations * 100.0) / obj_arr[c].k12_enrollment;
     }
 
     console.log(obj_arr);
 
-    var svgWidth = 1000, svgHeight = 500, barPadding = 5;
-    var barWidth = (svgWidth / obj_arr.length);
-    var svg = d3.select('svg')
-      .attr("width", svgWidth)
-      .attr("height", svgHeight);
+    // set the dimensions and margins of the graph
+    var margin = {top: 20, right: 20, bottom: 30, left: 40},
+        width = 1800 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
-    var barChart = svg.selectAll("rect") // select rectangles
-      .data(obj_arr) // call data
-      .enter()
-      .append("rect")
-      .attr("y", function(elem,index) {
-        return elem.vaccination_percent;
-      })
-      .attr("height", function(elem,index) {
-        return elem.vaccination_percent * 100;
-      })
-      .attr("width", barWidth - barPadding)
-        .attr("transform", function(elem,index) {
-          let translate = [barWidth * index, 0]
-          return "translate(" + translate + ")";
-        });
+    // set the ranges
+    var x = d3.scaleBand()
+              .range([0, width])
+              .padding(0.1);
+    var y = d3.scaleLinear()
+              .range([height, 0]);
+
+    // append the svg object to the body of the page
+    // append a 'group' element to 'svg'
+    // moves the 'group' element to the top left margin
+    var svgWidth = 1000, svgHeight = 300, barPadding = 5;
+    var barWidth = (svgWidth / obj_arr.length);
+    var svg = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+
+      // Scale the range of the data in the domains
+      x.domain(obj_arr.map(function(d) { return d.county; }));
+      y.domain([0, 100]);
+      //y.domain([0, d3.max(obj_arr, function(d) { return d.vaccination_percent; })]);
+
+      // append the rectangles for the bar chart
+      // var barChart = svg.selectAll("rect") // select rectangles
+      //   .data(obj_arr) // call data
+      //   .enter()
+      //   .append("rect")
+      //   .attr("y", function(elem,index) {
+      //     return svgHeight - (elem.vaccination_percent * 100);
+      //   })
+      //   .attr("height", function(elem,index) {
+      //     return elem.vaccination_percent * 100;
+      //   })
+      //   .attr("width", barWidth - barPadding)
+      //   .attr("transform", function(elem,index) {
+      //     let translate = [barWidth * index, 0]
+      //     return "translate(" + translate + ")";
+      //   });
+
+      svg.selectAll(".bar")
+          .data(obj_arr)
+          .enter()
+          .append("rect")
+          .attr("class", "bar")
+          .attr("x", function(d,i) { return x(d.county); })
+          .attr("width", x.bandwidth())
+          .attr("y", function(d,i) { console.log(y(d.vaccination_percent));
+            return y(d.vaccination_percent); })
+          .attr("height", function(d,i) { return height - y(d.vaccination_percent); });
+
+      svg.append("text")
+          .attr("transform",
+            "translate(" + (width/2) + " ," +
+                           (height + margin.top + 10) + ")")
+          .style("text-anchor", "middle")
+          .style("font-family", "Helvetica Neue")
+          .text("Counties in Washington");
+
+      // add the x Axis
+      svg.append("g")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x));
+
+      svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .style("font-family", "Helvetica Neue")
+            .text("Vaccination Percentage (%)");
+
+      // add the y Axis
+      svg.append("g")
+          .call(d3.axisLeft(y));
+
+      // add the title
+      svg.append("text")
+        .attr("x", (width / 2))
+        .attr("y", 0 - (margin.top / 2) + 10)
+        .attr("text-anchor", "middle")
+        .style("font-size", "20px")
+        .style("font-family", "Helvetica Neue")
+        .style("text-decoration", "underline")
+        .text("Vaccination Rates for Washington Counties");
+
+    // var svgWidth = 1000, svgHeight = 300, barPadding = 5;
+    // var barWidth = (svgWidth / obj_arr.length);
+    // var svg = d3.select('svg')
+    //   .attr("width", svgWidth)
+    //   .attr("height", svgHeight);
+    //
+    // var barChart = svg.selectAll("rect") // select rectangles
+    //   .data(obj_arr) // call data
+    //   .enter()
+    //   .append("rect")
+    //   .attr("y", function(elem,index) {
+    //     return svgHeight - (elem.vaccination_percent * 100);
+    //   })
+    //   .attr("height", function(elem,index) {
+    //     return elem.vaccination_percent * 100;
+    //   })
+    //   .attr("width", barWidth - barPadding)
+    //   .attr("transform", function(elem,index) {
+    //     let translate = [barWidth * index, 0]
+    //     return "translate(" + translate + ")";
+    //   });
 });
