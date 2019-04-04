@@ -47,14 +47,17 @@ class DescribeData(object):
         print(df_school_info.describe())
 
     def describe_county(self):
-        df_county_info = self.df_county[self.df_county.columns[2:]]
-        print(df_county_info.describe())
+        # for printing on the command line
+        df_county_info_1 = self.df_county[self.df_county.columns[2:8]]
+        df_county_info_2 = self.df_county[self.df_county.columns[8:]]
+        print(df_county_info_1.describe())
+        print(df_county_info_2.describe())
 
 def main():
     describe = DescribeData()
-    #describe.describe_school()
-    #describe.describe_county()
-    #describe.box_plot_school()
+    describe.describe_school()
+    describe.describe_county()
+    describe.box_plot_school()
     describe.plot_distributions()
 
 
