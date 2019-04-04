@@ -10,7 +10,7 @@ def calculate_stats():
     for column in string_columns:
         df[column] = pd.to_numeric(df[column].str.replace(',',''))
 
-    df['high_school_degree_percent'] = (df['high_school'] / df['totalPop']).multiply(100).round(1)
+    df['high_school_degree_percent'] = (1 - (df['high_school'] / df['totalPop'])).multiply(100).round(1)
     # 0 for Democrat and 1 for Republican
     df['politics'] = (df['clinton'] / (df['clinton'] + df['trump'])).round(2)
     df['employment_rate_2017'] = (df['employed_2017'] / df['labor_total_2017']).multiply(100).round(1)
