@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy.stats as stats
+import seaborn as sns
 
 class DescribeData(object):
     def __init__(self):
@@ -42,6 +43,18 @@ class DescribeData(object):
             ax.hist(data, bins=num_bin, ec='black')
             plt.savefig('./data_plots/' + column + '_distribution.png')
 
+
+    def plot_correlation_heatmap(self):
+        # correlation among county's independent variables
+        fig, ax = plt.subplots(figsize=(20, 10))
+        sns.set()
+        county_info = self.df_county.columns.values[2:]
+        f = self.df_county.loc[:, county_info].corr()
+        ax = sns.heatmap(f, annot=True)
+        plt.subplots_adjust(left=0.25, bottom=0.36, right=1.00,
+                            top=0.98)
+        plt.savefig('./data_plots/county_correlation_heatmap.png')
+
     def describe_school(self):
         df_school_info = self.df_school[['k12_enrollment', 'all_immunizations']]
         print(df_school_info.describe())
@@ -59,7 +72,7 @@ def main():
     describe.describe_county()
     describe.box_plot_school()
     describe.plot_distributions()
-
+    describe.plot_correlation_heatmap()
 
 if __name__ == "__main__":
     main()
