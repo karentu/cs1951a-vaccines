@@ -45,7 +45,7 @@ class DescribeData(object):
 
 
     def plot_correlation_heatmap(self):
-        # correlation among county's independent variables
+        correlation among county's independent variables
         fig, ax = plt.subplots(figsize=(20, 10))
         sns.set()
         county_info = self.df_county.columns.values[2:]
@@ -54,6 +54,20 @@ class DescribeData(object):
         plt.subplots_adjust(left=0.25, bottom=0.36, right=1.00,
                             top=0.98)
         plt.savefig('./data_plots/county_correlation_heatmap.png')
+
+        # correlation among different vaccination rates
+        immunization = ['all_immunizations', 'diphtheria_tetanus','pertussis','mmr','polio','hepatitisB','varicella']
+        temp_df = self.df_school.copy()
+        for i in immunization:
+            temp_df[i+'_rate'] = temp_df[i] / temp_df['k12_enrollment']
+
+        immune_rate_columns = [(x+'_rate') for x in immunization]
+        fig, ax = plt.subplots(figsize=(15, 10))
+        sns.set()
+        f = temp_df.loc[:, immune_rate_columns].corr()
+        ax = sns.heatmap(f, annot=True)
+        plt.subplots_adjust(left=0.19, bottom=0.25, right=0.95, top=0.94)
+        plt.savefig('./data_plots/vaccination_correlation_heatmap.png')
 
     def describe_school(self):
         df_school_info = self.df_school[['k12_enrollment', 'all_immunizations']]
