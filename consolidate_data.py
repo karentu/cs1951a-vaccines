@@ -2,28 +2,28 @@ import csv, sqlite3
 
 # BEFORE RUNNING THIS run python3 on education_read, poverty_read, data_read,
 #unemployment_read,  median_household_income_data_read, political_election_read,
-#racial_demographics_read 
+#racial_demographics_read
 
 
 # Run your query, the result is stored as `data`
 with sqlite3.connect('washington.db') as conn:
     cur = conn.cursor()
-    sql = """SELECT e.id, e.county, rural_urban, urban_influence, less_than_high_school, 
-high_school, bachelors, 
+    sql = """SELECT e.id, e.county, rural_urban, urban_influence, less_than_high_school,
+high_school, bachelors,
 clinton, trump, otherVotes, totalVotes,
 num_pov_all, percent_pov_all, num_pov_child, percent_pov_child,
 labor_total_2014, employed_2014, unemployed_2014,
 labor_total_2015, employed_2015, unemployed_2015,
 labor_total_2016, employed_2016, unemployed_2016,
-labor_total_2017, employed_2017, unemployed_2017, 
+labor_total_2017, employed_2017, unemployed_2017,
 med_household_income_2017, medHHIncome_percent_state_2017,
 totalPop, white, black, native,
 asian, pacificIslander, otherRace, multiracial,
 hispanicLatino, whiteAlone,
 census_2009, estimate_2010, estimate_2011, estimate_2012, estimate_2013,
 estimate_2014, estimate_2015, prelim_estimate_2016, projection_2017,
-s.id, school_name, 
-school_year, k12_enrollment, 
+s.id, school_name,
+school_year, k12_enrollment,
 all_immunizations, any_exempt, medical_exempt, personal_exempt, religious_exempt, religious_mem_exempt,
 diphtheria_tetanus, pertussis, mmr, polio, hepatitisB, varicella,
 school_district, start_grade, end_grade
@@ -71,5 +71,3 @@ with open('complete.csv', 'w') as f_handle:
     # Iterate over `data`  and  write to the csv file
     for row in data:
         writer.writerow(row)
-
-
