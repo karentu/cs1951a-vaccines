@@ -7,10 +7,6 @@ import csv, sqlite3, re
 def getfile(k,n):
     return "school_data/1" + str(k) + "_1" + str(n) + "_Demographic_Data_By_School.csv"
 
-file_2015 = "school_data/14_15_Demographic_Data_By_School.csv"
-file_2016 = "school_data/15_16_Demographic_Data_By_School.csv"
-file_2017 = "school_data/16_17_Demographic_Data_By_School.csv"
-file_2018 = "school_data/17_18_Demographic_Data_By_School.csv"
 file_school_diretory = "school_data/Washington_School_Directory.csv"
 
 # school name -> list( elems, elems, ... )
