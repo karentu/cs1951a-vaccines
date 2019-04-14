@@ -10,7 +10,7 @@ cur.execute("CREATE TABLE food(id INTEGER PRIMARY KEY AUTOINCREMENT," +
 " low_access BOOLEAN, low_access_low_income BOOLEAN, kids_low_access_percent REAL, " +
 "snap_number INTEGER, no_vehicle_number INTEGER);") # use your column names here
 
-with open('Food.csv','r') as fin: # `with` statement available in 2.5+
+with open('Food.csv','r', encoding ='latin-1') as fin: # `with` statement available in 2.5+
     # csv.DictReader uses first line in file for column headings by default
     dr = csv.DictReader(fin) # comma is default delimiter
     to_db = [\
