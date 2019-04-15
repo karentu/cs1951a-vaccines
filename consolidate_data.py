@@ -1,8 +1,20 @@
 import csv, sqlite3
+import education_read, poverty_read, unemployment_read
+import median_household_income_data_read, political_election_read
+import data_read, racial_demographics_read, school_data, absences_read
 
 # BEFORE RUNNING THIS run python3 on education_read, poverty_read, data_read,
 #unemployment_read,  median_household_income_data_read, political_election_read,
 #racial_demographics_read
+education_read.main()
+poverty_read.main()
+data_read.main()
+unemployment_read.main()
+median_household_income_data_read.main()
+political_election_read.main()
+racial_demographics_read.main()
+school_data.main()
+absences_read.main()
 
 
 # Run your query, the result is stored as `data`
@@ -26,7 +38,11 @@ s.id, school_name,
 school_year, k12_enrollment,
 all_immunizations, any_exempt, medical_exempt, personal_exempt, religious_exempt, religious_mem_exempt,
 diphtheria_tetanus, pertussis, mmr, polio, hepatitisB, varicella,
-school_district, start_grade, end_grade
+school_district, start_grade, end_grade,
+total_enrollment,
+school_american_indian_alaskan_native, school_asian, school_asian_pacific_islander, school_pacific_islander,
+school_black, school_hispanic, school_white, school_two_or_more_race, male, female, num_free_reduced_meals,
+district_number, city, zip, sd.school_code, total_percent_absences, low_income_absence_percent
 FROM education as e INNER JOIN politicalElection as pe
 ON e.county = pe.county
 INNER JOIN poverty as pv
@@ -40,7 +56,16 @@ on e.county = m.county
 INNER JOIN vaccination as v
 on e.county = v.county
 INNER JOIN schools as s
-on v.id = s.id"""
+on v.id = s.id
+INNER JOIN school_dem as sd
+on sd.school = s.school_name 
+AND sd.county = v.county
+AND sd.year = v.school_year
+INNER JOIN absences as a
+on sd.school_code = a.school_code
+"""
+
+
     cur.execute(sql)
     data = cur.fetchall()
 
@@ -63,7 +88,7 @@ on v.id = s.id"""
 
 
 # Create the csv file
-with open('complete.csv', 'w') as f_handle:
+with open('complete_with_school.csv', 'w') as f_handle:
     writer = csv.writer(f_handle)
     # Add the header/column names
     names = list(map(lambda x: x[0], cur.description))

@@ -27,6 +27,12 @@ def get_school_id(school_name):
         insert_into_schools_db(school_name)
         return get_school_id(school_name)
 
+def clean_school_name(name):
+    school = list(map(lambda x: x.lower(), name.split()))
+    if (school[-1] == 'school' or school[-1] == 'sch' or school[-1] == 'schl'):
+        del school[-1]
+    return " ".join(school)
+
 def main():
     delete_tables()
     create_school_table()
@@ -59,11 +65,14 @@ def main():
             to_db_lst = list(to_db)
             for row in to_db_lst:
                 row = list(row)
-                row[-2] = row[-2].lower().capitalize()
+                row[-2] = row[-2].lower()
+                row[-3] = row[-3].lower()
+                row[0] = row[0].lower()
+                row[0] = clean_school_name(row[0])
                 if (row[2] == 'Y'): # check to see if it was reported
                     del row[2]
-                    school_year, _ = row[1].split('-')
-                    row[1] = school_year
+                    _, school_year = row[1].split('-')
+                    row[1] = "20" + school_year
                     grade_levels = row[-1]
                     del row[-1]
                     row = clean_grades(grade_levels, row)
