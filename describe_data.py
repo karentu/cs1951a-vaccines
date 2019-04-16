@@ -8,6 +8,7 @@ class DescribeData(object):
     def __init__(self):
         self.df_school = pd.read_csv('./complete_cleaned.csv')
         self.df_county = pd.read_csv('./county_stats.csv')
+        self.merged = pd.read_csv('./merged_county_stats.csv')
 
     def box_plot_school(self):
         school_enrollment = self.df_school['k12_enrollment'].values
@@ -45,7 +46,7 @@ class DescribeData(object):
 
 
     def plot_correlation_heatmap(self):
-        correlation among county's independent variables
+        # correlation among county's independent variables
         fig, ax = plt.subplots(figsize=(20, 10))
         sns.set()
         county_info = self.df_county.columns.values[2:]
@@ -69,6 +70,18 @@ class DescribeData(object):
         plt.subplots_adjust(left=0.19, bottom=0.25, right=0.95, top=0.94)
         plt.savefig('./data_plots/vaccination_correlation_heatmap.png')
 
+    def plot_combined_correlation_heatmap(self):
+        # correlation among county's independent variables
+        fig, ax = plt.subplots(figsize=(20, 10))
+        sns.set()
+        merged_info = self.merged.columns.values[2:]
+        f = self.merged.loc[:, merged_info].corr()
+        ax = sns.heatmap(f, annot=True)
+        plt.subplots_adjust(left=0.25, bottom=0.36, right=1.00,
+                            top=0.98)
+        # plt.show()
+        plt.savefig('./visualization/final_correlation_heatmap.png')
+
     def describe_school(self):
         df_school_info = self.df_school[['k12_enrollment', 'all_immunizations']]
         print(df_school_info.describe())
@@ -82,11 +95,12 @@ class DescribeData(object):
 
 def main():
     describe = DescribeData()
-    describe.describe_school()
-    describe.describe_county()
-    describe.box_plot_school()
-    describe.plot_distributions()
-    describe.plot_correlation_heatmap()
+    # describe.describe_school()
+    # describe.describe_county()
+    # describe.box_plot_school()
+    # describe.plot_distributions()
+    # describe.plot_correlation_heatmap()
+    describe.plot_combined_correlation_heatmap()
 
 if __name__ == "__main__":
     main()
