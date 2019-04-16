@@ -8,6 +8,7 @@ from sklearn import linear_model
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from scipy import stats
+from sklearn.preprocessing import PolynomialFeatures
 
 
 all_features = ['rural_urban', 'urban_influence', 'high_school_degree_percent',
@@ -60,7 +61,39 @@ def preprocess_features():
     df['immunization_rate'] = (df['all_immunizations'] / df['k12_enrollment']).multiply(100).round(1)
     return df[all_features + labels]
 
-def MultipleLinearRegression(X_train, X_test, y_train, y_test):
+def singleLinearRegression(df):
+    for feature in all_features:
+        X = df[feature].values
+        X = np.reshape(X, (-1,1))
+        y = df[labels].values
+        X_train, X_test, y_train, y_test = train_test_split(
+            X,
+            y,
+            test_size=0.1,
+            shuffle=True
+        )
+
+        lm = LinearRegression().fit(X_train, y_train)
+
+        train_r_squared = lm.score(X_train, y_train)
+        train_mse = mean_squared_error(y_train, lm.predict(X_train))
+        test_mse = mean_squared_error(y_test, lm.predict(X_test))
+        print(feature + " results:")
+        print('Intercept: %f, Coefficient: %f' % (lm.intercept_,lm.coef_))
+        print('Training R-Squared: %f' % train_r_squared)
+        print('Training MSE: %f' % train_mse)
+        print('Testing MSE: %f' % test_mse)
+
+def multipleLinearRegression(df):
+    # change all_features to different feature list for different ML analysis
+    X = df[all_features].values
+    y = df[labels].values
+    X_train, X_test, y_train, y_test = train_test_split(
+        X,
+        y,
+        test_size=0.1,
+        shuffle=True
+    )
 
     lm = LinearRegression().fit(X_train, y_train)
     params = np.append(lm.intercept_,lm.coef_)
@@ -87,11 +120,9 @@ def MultipleLinearRegression(X_train, X_test, y_train, y_test):
     print('Testing MSE: %f' % test_mse)
 
 
-def main():
-    df = preprocess_features()
-
+def linearCrossTerms(df):
     # change all_features to different feature list for different ML analysis
-    X = df[multi_regression_features_shortened].values
+    X = df[all_features].values
     y = df[labels].values
     X_train, X_test, y_train, y_test = train_test_split(
         X,
@@ -100,7 +131,42 @@ def main():
         shuffle=True
     )
 
-    MultipleLinearRegression(X_train, X_test, y_train, y_test)
+    poly = PolynomialFeatures(interaction_only=True)
+    transformed = poly.fit_transform(X_train)
+    lm = linear_model.LinearRegression().fit(transformed, y_train)
+
+    params = np.append(lm.intercept_, lm.coef_)
+    predictions = lm.predict(transformed)
+
+    newX = np.append(np.ones((len(transformed), 1)), transformed, axis=1)
+    MSE = (sum((y_train - predictions) ** 2)) / (len(newX) - len(newX[0]))
+
+    var_b = MSE * (np.linalg.pinv(np.dot(newX.T, newX)).diagonal())
+    sd_b = np.sqrt(var_b)
+    ts_b = params / sd_b
+
+    p_values = [2 * (1 - stats.t.cdf(np.abs(i), (len(newX) - 1))) for i in ts_b]
+
+    myDF3 = pd.DataFrame()
+    myDF3["Coefficients"],myDF3["Standard Errors"],myDF3["t values"],myDF3["Probabilites"] = [params,sd_b,ts_b,p_values]
+    print(myDF3)
+
+    train_r_squared = lm.score(transformed, y_train)
+    train_mse = mean_squared_error(y_train, lm.predict(transformed))
+    test_transformed = poly.fit_transform(X_test)
+    test_mse = mean_squared_error(y_test, lm.predict(X_test))
+    print('Training R-Squared: %f' % train_r_squared)
+    print('Training MSE: %f' % train_mse)
+    print('Testing MSE: %f' % test_mse)
+
+
+def main():
+    df = preprocess_features()
+    print(df['immunization_rate'])
+
+    singleLinearRegression(df)
+    multipleLinearRegression(df)
+    #linearCrossTerms(df)
 
 
 if __name__ == "__main__":
