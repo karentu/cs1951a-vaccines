@@ -18,7 +18,8 @@ all_features = ['rural_urban', 'urban_influence', 'high_school_degree_percent',
             'politics', 'percent_pov_child', 'percent_pov_all', 'employment_rate',
             'med_household_income_2017', 'white_county', 'white_school', 'grade_span',
             'male_percent', 'num_free_reduced_meals', 'total_percent_absences',
-            'low_income_absence_percent', 'school_district']
+            'low_income_absence_percent', 'religious_exempt',
+            'personal_exempt', 'medical_exempt', 'school_district']
 
 multi_regression_features_shortened = ['high_school_degree_percent',
                                        'percent_pov_child',
