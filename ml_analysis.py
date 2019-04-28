@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, normalize
 from sklearn.model_selection import train_test_split
 
 from sklearn import dummy, linear_model, svm
@@ -163,6 +163,11 @@ def multipleLinearRegression(X, y):
     print('Testing MSE: %f' % (multi_test_mse / 20))
 
 def svm(X, y, kernel):
+    if kernel == 'poly':
+        print('normalizing data')
+        X = np.array([(x - min(x)) / (max(x) - min(x)) for x in X])
+        y = y / 100
+
     svm_r_sqaure = 0
     svm_train_mse = 0
     svm_test_mse = 0
@@ -175,6 +180,7 @@ def svm(X, y, kernel):
         )
 
         clf = SVR(kernel=kernel,
+                  degree=3,
                   gamma='auto').fit(X_train, y_train)
 
         train_r_squared = clf.score(X_train, y_train)
@@ -290,6 +296,15 @@ def main():
     # neural_network(f_regression_X, df[labels].values)
     # print('Neural Network regression on features selected by sklearn (mutual info):')
     # neural_network(mutual_info_X, df[labels].values)
+
+    # print('SVM (poly) regression on all features:')
+    # svm(df[all_features].values, df[labels].values, 'poly')
+    # print('SVM (poly) regression on features selected by p-values:')
+    # svm(df[multi_regression_features_shortened].values, df[labels].values, 'poly')
+    # print('SVM (poly) regression on features selected by sklearn (f score):')
+    # svm(f_regression_X, df[labels].values, 'poly')
+    # print('SVM (poly) regression on features selected by sklearn (mutual info):')
+    # svm(mutual_info_X, df[labels].values, 'poly')
 
 
 if __name__ == "__main__":
