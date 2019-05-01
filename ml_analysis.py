@@ -21,7 +21,9 @@ all_features = ['rural_urban', 'urban_influence', 'high_school_degree_percent',
             'low_income_absence_percent', 'religious_exempt',
             'personal_exempt', 'medical_exempt', 'school_district']
 
-multi_regression_features_shortened = ['high_school_degree_percent',
+multi_regression_features_shortened = ['urban_influence',
+                                       'high_school_degree_percent',
+                                       'politics',
                                        'percent_pov_child',
                                        'employment_rate',
                                        'med_household_income_2017',
@@ -31,12 +33,15 @@ multi_regression_features_shortened = ['high_school_degree_percent',
                                        'num_free_reduced_meals',
                                        'total_percent_absences',
                                        'low_income_absence_percent',
+                                       'religious_exempt',
+                                       'personal_exempt',
+                                       'medical_exempt',
                                        'school_district']
 
 labels = ['immunization_rate']
 
 def preprocess_features():
-    df = pd.read_csv('./complete_with_school_cleaned.csv')
+    df = pd.read_csv('./cleaned_data_files/complete_with_school_cleaned.csv')
 
     df['med_household_income_2017'] = df['med_household_income_2017'].str.replace('$','')
     string_columns = ['high_school', 'clinton', 'trump', 'med_household_income_2017',
@@ -165,7 +170,7 @@ def multipleLinearRegression(X, y):
 
 def svm(X, y, kernel):
     if kernel == 'poly':
-        print('normalizing data')
+        # print('normalizing data')
         X = np.array([(x - min(x)) / (max(x) - min(x)) for x in X])
         y = y / 100
 
@@ -260,13 +265,13 @@ def main():
     # feature_selection(df, f_regression, 1)
     # print('Top 3 Features selected by F-regression:')
     # feature_selection(df, f_regression, 3)
-    print('Top 5 Features selected by F-regression:')
+    # print('Top 5 Features selected by F-regression:')
     f_regression_X = feature_selection(df, f_regression, 5)
     # print('Top 1 Features selected by mutual info regression:')
     # feature_selection(df, mutual_info_regression, 1)
     # print('Top 3 Features selected by mutual info regression:')
     # feature_selection(df, mutual_info_regression, 3)
-    print('Top 5 Features selected by mutual info regression:')
+    # print('Top 5 Features selected by mutual info regression:')
     mutual_info_X = feature_selection(df, mutual_info_regression, 5)
 
     # singleLinearRegression(df)
@@ -297,7 +302,7 @@ def main():
     # neural_network(f_regression_X, df[labels].values)
     # print('Neural Network regression on features selected by sklearn (mutual info):')
     # neural_network(mutual_info_X, df[labels].values)
-
+    # 
     # print('SVM (poly) regression on all features:')
     # svm(df[all_features].values, df[labels].values, 'poly')
     # print('SVM (poly) regression on features selected by p-values:')
