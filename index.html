@@ -34,7 +34,7 @@
             <a class="nav-link" href="#section3">Blog Post 2</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#section3">Blog Post 3</a>
+            <a class="nav-link" href="#section4">Blog Post 3</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="https://github.com/karentu/cs1951a-vaccines">Code
@@ -44,12 +44,12 @@
         </ul>
     </nav>
   </div>
-  <div id="wrapper1" style ="background-color:#565656">
-      <div id="section1" class="container" style="padding-top:140px;padding-bottom:70px">
-        <div id="about" style="color:#fff">
-          <h3>
+  <div id="wrapper1" style ="background-color:#565656; background-image: url('assets/vaccine.jpg'); background-repeat: no-repeat;">
+      <div id="section1" class="container" style="padding-top:140px;padding-bottom:150px">
+        <div id="about" style="color:#fff; padding-top:40px">
+          <h1>
             CS1951A Term Project: Vaccines
-          </h3>
+          </h1>
           <p id="description">
             <br/>
             Modern medicine has effectively eradicated a number of serious illnesses
@@ -66,259 +66,459 @@
              other factors in hopes to determine what leads
              someone to become an "anti-vaxxer." <br/>
             <br/>
-            We are currently working on: Final Analysis!
           </p>
         </div>
       </div>
-    </div>
-      <div id="section2" class="container" style="padding-top:140px;padding-bottom:70px">
-        <div class="blogpost" id="blog_post1">
-          <h1> First Blog Post </h1>
-          Our first check-in was last week and went great. We talked about our
-          current progress and discussed our next steps. After we selected the
-          data we’d be looking at, we created scripts to parse and clean the
-          data and put it into our SQL database. Each data set was placed in its
-          own table. The different data we looked at included: vaccination
-          rates of schools and counties in different years, unemployment rates,
-          poverty estimations and education. Issues that we ran into while
-          cleaning the data is some of the data sets we were looking at did not
-          contain relevant  information after cleaning. Likewise, we ran into
-          strange issues where Excel would reformat some of the entry values
-          in the csv into dates (e.g. 3-5 to indicated grades 3 to 5 became March 5th).<br/>
-          <img class="content-img" width = "75%" src="assets\origfile.png" alt="image of csv file">
-          <br/>
-          For the vaccination datasets, we obtained csv files from the Data.Gov
-          website. More specifically, we used the datasets for the state of
-          Washington, from Kindergarten to 12th Grade for the years 2014-2015,
-          2015-2016 and 2016-2017. The data from each dataset was inserted
-          into the same table with a “Year” field in order to distinguish
-          which year’s dataset a particular entry originated from. In
-          addition, because many of the schools had entries in one or more
-          year’s datasets, a separate table corresponding to each school was
-          created with a corresponding ID. These IDs were then used in the
-          overall vaccination table as a foreign key field in order to link
-          the vaccination table to the school table.<br/>
-          <br/>
-          <img class="content-img" width = "50%" src="assets\columns.png" alt="image of column titles">
-          <br/>
-          For the education, poverty, and unemployment datasets, we obtained csv
-          files from USDA.gov. This had data for every county in the entire USA,
-          so we wrote a script to read through the CSV line by line and only get
-          the data from the state of Washington. Then, we inserted this data
-          into our database. <br/>
-          <img class="content-img" width = "50%" src="assets\sqlquery.png" alt="image of sql query">
-          <br/>
-          <b>Next Steps</b><br/>
-          <br/>
-          Our next steps are to finish cleaning and collecting some more data on
-          political/racial demographics, population changes and food desert areas
-          if we can find this data. We also wanted to consolidate and combine all
-          the data into fewer tables/CSV files by associating everything with a
-          county. This way, we can start to do one visualization for our midterm
-          report. One idea for a visualization could be to do a map visualization
-          of the vaccination rates. We also wanted to get one ML/stats thing done,
-          such as a multiple linear regression of some of the data.<br/>
-        </div>
-      </div>
-      <div id="section3" class="container" style="padding-top:140px;padding-bottom:70px">
-        <div class="blogpost" id="blog_post2">
-          <h1> Second Blog Post </h1>
-            <h3> New Data! </h3>
-            Since we were in need of more data about the individual schools in
-            Washington themselves, we took a look at the school data provided by
-             OSPI - Washington. There we pulled out relevant features, such as
-             total enrollment, enrollment by race, free/reduced lunch enrollment,
-             and gender. To be able to more uniquely identify each school, we
-             joined this data with another dataset, which provided the zip code
-             , school code and LEA code. We looked at years 2014-2018. <br> <br>
-
-             For our second visualization, we decided to modify our original
-             county correlation heat map to include immunization data. As each
-             county had several school districts associated with it (e.g. King
-             County had 645 school immunization entries alone for the 2016-2017
-             school year), we decided to calculate the immunization percent
-             (dividing the number of immunizations by the total enrollment).<br><br>
-
-             After having created the immunization correlation heat map, we saw
-             that the all immunization data seemed to have a slight inverse
-             relationship to the other immunization data, so we decided to
-             include averaged immunization data beyond just the all
-             immunizations field. Namely, we used the following three fields to
-             represent the immunization data: averaged all vaccination percent,
-             averaged mmr vaccination percent, averaged varicella percent. The
-             reason for including mmr was because based on current events, the
-             measles outbreak seems to be the most conspicuous in the state of
-             Washington. As for varicella, again in the original vaccination
-             correlation heat map, the mmr, diphtheria-tetanus, pertussis, polio
-             and hepatitis B had a high correlation value (0.91-0.97) with each
-             other, but had a much lower correlation value to varicella
-             (0.55-0.57) — so we decided to include varicella since there
-             seemed to be a weaker relationship to the other vaccinations.<br><br>
-
-             Finally, we added the averaged percentages of all immunizations,
-             mmr, and varicella to the original county correlation heat map,
-             and for clarity removed some of the more redundant county statistics
-             (e.g. rural_urban, percent_pov_child, medHHIncome_percent_state_2017,
-             and white) as they were strongly correlated with other county
-             statistics (i.e. urban_influence, percent_pov_all, med_household_income_2017,
-             and whiteAlone respectively). The end result is pictured below.<br><br>
-
-             <img class="content-img" width = "100%" src="assets\correlation_heatmap.png" alt="correlation heatmap">
-
-             <h2>ML analysis</h2>
-
-              We performed a series of Machine Learning analyses, including
-              linear regressions, SVM regressions, and neural network regressions.
-              Our main goal of the analyses was to create a model, using various
-              information (features) that we gathered, to identify important
-              features and to predict the immunization rate for each school.<br><br>
-
-              We first preprocessed all the possible features that could be
-              included for the analyses.<br>
-              <ul>
-                <li>rural_urban: Rural-Urban Continuum Codes that classifies
-                  metropolitan counties by the population size of their metro area, and nonmetropolitan counties by degree of urbanization and adjacency to a metro area.
-                <li>high_school_degree_percent: percentage of residents in a county that receive high school degrees.
-                <li>politics: percentage of people in a county who voted for the Democratic Party in the previous Presidential election. (From 0 to 1, 0 being more Republican-leaning, and 1 being more Democratic-leaning)
-                <li>percent_pov_child: percentage of children in poverty in a county.
-                <li>percent_pov_all: percentage of people in poverty in a county.
-                <li>employment_rate: the employment rate in a county.
-                <li>med_household_income_2017: median household income in a county.
-                <li>white_county: percentage of white people in a county.
-                <li>white_school: percentage of white people in a school.
-                <li>grade_span: grade span for each school.
-                <li>male_percent: percentage of male students in a school.
-                <li>num_free_reduced_meals: free/reduced lunch enrollment in a school.
-                <li>total_percent_absences: percentage of absences in a school.
-                <li>low_income_absence_percent: percentage of absences of low income students in a school.
-                <li>school_district: school district that a school belongs to (transformed using label encoder)
-              </ul>
-
-              And we used the immunization rate of each school as the label.
-              Because we split our data set to fit the models, our results for
-              the models were averaged values across several runs of the models.<br><br>
-
-              To begin with, we used a dummy regressor that always predicted
-              the mean of the label, which produced a baseline for our following
-              results. The result is attached below:<br><br>
-
-              <img class="content-img" width = "30%" src="assets\training_errors.png" alt="ml errors"><br><br>
-
-              Then we performed single linear regression for each of the features, and the results are shown below: <br> <br>
-
-              <img class="content-img" width = "33%" src="assets\results1.png" alt="ml errors">
-              <img class="content-img" width = "33%" src="assets\results2.png" alt="ml errors">
-              <img class="content-img" width = "33%" src="assets\results3.png" alt="ml errors"> <br>
-
-              Based on the result, although the mean squared errors for each
-              model’s test data had shown improvement compared to the baseline,
-              all results had really low R-squared values, meaning that the
-              models could not effectively predict the label. Among the features,
-              single linear regression models for white_county, white_school, and
-              num_free_reduced_meals had higher R-squared values as well as a
-              lower MSE on the testing data, implying that racial composition and
-              financial condition of students in a school may have more impact
-              on the immunization rate of schools.<br><br>
-
-              After performing single linear regressions, we then performed
-              multiple linear regressions, with the following 4 ways of choosing
-              the features:<br>
-              <ol type = "1">
-                <li>We passed in all the features to train the model
-                <li>We created a table with statistics for each feature, and
-                  chose the data with a p-value less than 0.05. The features
-                  that we chose included: high_school_degree_percent,
-                  percent_pov_child, employment_rate, med_household_income_2017,
-                  white_county, white_school, grade_span, num_free_reduced_meals,
-                  total_percent_absences, low_income_absence_percent, school_district.
-                  Based on the p-values, the features included multiple aspects,
-                  including financial, educational, geological, and demographic
-                  variables.<br><br>
-                  <img class="content-img" width = "30%" src="assets\linear_regression.png" alt="ml errors"> <br>
-                <li>We used scikit learn’s SelectKBest class to find the five
-                  best features based on F-value between features and labels
-                  (which captures only linear dependency). The features included
-                  employment_rate, white_county, white_school, grade_span, and
-                  num_free_reduced_meals, which featured economic, demographic
-                  variables, as well as school types.
-                <li>We used scikit learn’s SelectKBest class to find the five
-                  best features based on mutual information for a continuous
-                  variable (which captures both linear and nonlinear dependency).
-                  The features included politics, percent_pov_child,
-                  med_household_income_2017, white_county, and school_district,
-                  which featured economic, political, and demographic variables,
-                  as well as school types. <br>
-                  The results for the 4 models are attached below: <br>
-                  <img class="content-img" width = "30%" src="assets\4models_results.png" alt="results"> <br>
-              Multiple linear regressions demonstrated better results compared
-              to single linear regressions, and the most effective model is the
-              one which all features were considered. However, features selected
-              with F score generated lower errors which preserved the performance
-              of the model, which is reasonable because the method of linear
-              selection used focused on linear dependency.<br><br>
-
-              Because the most significant features we selected using F-test and
-              mutual information differed, we suspected that non-linear regression
-              models might generate better performance, since F-test only checked
-              linear dependency while mutual information captured the general
-              dependency of the variables. We use SVM Regression model with a
-              RBF kernel to perform non-linear regressions, and the results are
-              demonstrated below: <br><br>
-
-              <img class="content-img" width = "30%" src="assets\svm_results.png" alt="svm results"> <br>
-
-              According to the result, the SVM regression model based on features
-              selected using mutual information had a higher R-squared value and
-              lower MSE compared to linear regressions, meaning that non-linear
-              model to fit the data better. <br><br>
-
-              We also implemented neural network regression model, another
-              non-linear model, to compare the results:<br><br>
-
-              <img class="content-img" width = "50%" src="assets\neural_network.png" alt="neural net"> <br>
-
-              Surprisingly, the features selected using f-test outperformed other
-              feature selections. This was probably due to the more linear aspect
-              of the linear layers of the neural network. The result gave us the
-              lowest MSE on the testing data, but had similar performance in
-              general compared to SVM models. <br><br>
-
-              Through different ML models, we also found that non-linear models
-              gave a better prediction performance compared to linear models,
-              while the general performance could not give us an effective prediction
-              model, which might be because we did not have enough data to cover
-              different determinants, or because the relationship could not be
-              modeled in a deterministic way. <br><br>
-
-              However, through the usage of feature selection methods and comparison
-              of results given by different ML models, we found that white_school
-              was the most significant feature using f-test, and school_district
-              was the most significant feature using mutual information. The general
-              result from feature selection indicated that racial component and
-              economic conditions had most significant impacts on the prediction
-              of immunization rates, and these determining features are likely to
-              be grouped/distinguished from school-district level.<br><br>
-
-              <img class="content-img" width = "50%" src="assets\top_features.png" alt="top features"> <br>
-
-              <h2>Next Steps</h2>
-
-              Based on the current progress, our potential next steps include:<br>
-              <ul>
-                <li>Try to create more effective prediction models;
-                <li>Perform additional ML analysis, including clustering and classification models;
-                <li>Find additional data that might help the ML analyses;
-                <li>Add a visualization demonstrating the immunization situation across counties/school districts;
-                <li>Applying prediction models to other states to check if there is a general trend among different states.
-
-
-        </div>
-      </div>
-      <div id="wrapper1" style ="background-color:#fff">
-          <div id="section5" class="container" style="padding-top:140px;padding-bottom:70px">
-            <div id="blog_post3" style="color:#fff">
-              <script type='text/javascript' src='https://10ay.online.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 900px; height: 510px;'><object class='tableauViz' width='900' height='510' style='display:flex;justify-content:center'><param name='host_url' value='https%3A%2F%2F10ay.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;karentu' /><param name='name' value='TableauMaps&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='showAppBanner' value='false' /><param name='filter' value='iframeSizedToWindow=false' /></object></div>
+  </div>
+  <div id="wrapper2" style ="background-color:#d0e2ec">
+    <div id="section2" class="container" style="padding-top:100px;padding-bottom:70px">
+        <a style="display:flex;justify-content:left;color:#fff"data-toggle="collapse" href="#collapseBlogPost1" role="button" aria-expanded="false" aria-controls="collapseExample">
+          <h1>First Blog Post</h1>
+        </a>
+        <div class="collapse" id="collapseBlogPost1">
+          <div class="card card-body" style ="background-color:#d0e2ec">
+            <div class="blogpost" id="blog_post1">
+              Our first check-in was last week and went great. We talked about our
+              current progress and discussed our next steps. After we selected the
+              data we’d be looking at, we created scripts to parse and clean the
+              data and put it into our SQL database. Each data set was placed in its
+              own table. The different data we looked at included: vaccination
+              rates of schools and counties in different years, unemployment rates,
+              poverty estimations and education. Issues that we ran into while
+              cleaning the data is some of the data sets we were looking at did not
+              contain relevant  information after cleaning. Likewise, we ran into
+              strange issues where Excel would reformat some of the entry values
+              in the csv into dates (e.g. 3-5 to indicated grades 3 to 5 became March 5th).<br/>
+              <img class="content-img" width = "75%" src="assets\origfile.png" alt="image of csv file">
+              <br/>
+              For the vaccination datasets, we obtained csv files from the Data.Gov
+              website. More specifically, we used the datasets for the state of
+              Washington, from Kindergarten to 12th Grade for the years 2014-2015,
+              2015-2016 and 2016-2017. The data from each dataset was inserted
+              into the same table with a “Year” field in order to distinguish
+              which year’s dataset a particular entry originated from. In
+              addition, because many of the schools had entries in one or more
+              year’s datasets, a separate table corresponding to each school was
+              created with a corresponding ID. These IDs were then used in the
+              overall vaccination table as a foreign key field in order to link
+              the vaccination table to the school table.<br/>
+              <br/>
+              <img class="content-img" width = "50%" src="assets\columns.png" alt="image of column titles">
+              <br/>
+              For the education, poverty, and unemployment datasets, we obtained csv
+              files from USDA.gov. This had data for every county in the entire USA,
+              so we wrote a script to read through the CSV line by line and only get
+              the data from the state of Washington. Then, we inserted this data
+              into our database. <br/>
+              <img class="content-img" width = "50%" src="assets\sqlquery.png" alt="image of sql query">
+              <br/>
+              <b>Next Steps</b><br/>
+              <br/>
+              Our next steps are to finish cleaning and collecting some more data on
+              political/racial demographics, population changes and food desert areas
+              if we can find this data. We also wanted to consolidate and combine all
+              the data into fewer tables/CSV files by associating everything with a
+              county. This way, we can start to do one visualization for our midterm
+              report. One idea for a visualization could be to do a map visualization
+              of the vaccination rates. We also wanted to get one ML/stats thing done,
+              such as a multiple linear regression of some of the data.<br/>
             </div>
           </div>
         </div>
+    </div>
+  <div id ="wrapper3" style ="background-color:#fed88f;">
+    <div id="section3" class="container" style="padding-top:100px;padding-bottom:70px">
+      <a style="display:flex;justify-content:center;color:#fff"data-toggle="collapse" href="#collapseBlogPost2" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <h1>Second Blog Post</h1>
+      </a>
+      <div class="collapse" id="collapseBlogPost2">
+        <div class="card card-body" style ="background-color:#fed88f">
+          <div class="blogpost" id="blog_post2">
+              <h3> New Data! </h3>
+              Since we were in need of more data about the individual schools in
+              Washington themselves, we took a look at the school data provided by
+               OSPI - Washington. There we pulled out relevant features, such as
+               total enrollment, enrollment by race, free/reduced lunch enrollment,
+               and gender. To be able to more uniquely identify each school, we
+               joined this data with another dataset, which provided the zip code
+               , school code and LEA code. We looked at years 2014-2018. <br> <br>
+
+               For our second visualization, we decided to modify our original
+               county correlation heat map to include immunization data. As each
+               county had several school districts associated with it (e.g. King
+               County had 645 school immunization entries alone for the 2016-2017
+               school year), we decided to calculate the immunization percent
+               (dividing the number of immunizations by the total enrollment).<br><br>
+
+               After having created the immunization correlation heat map, we saw
+               that the all immunization data seemed to have a slight inverse
+               relationship to the other immunization data, so we decided to
+               include averaged immunization data beyond just the all
+               immunizations field. Namely, we used the following three fields to
+               represent the immunization data: averaged all vaccination percent,
+               averaged mmr vaccination percent, averaged varicella percent. The
+               reason for including mmr was because based on current events, the
+               measles outbreak seems to be the most conspicuous in the state of
+               Washington. As for varicella, again in the original vaccination
+               correlation heat map, the mmr, diphtheria-tetanus, pertussis, polio
+               and hepatitis B had a high correlation value (0.91-0.97) with each
+               other, but had a much lower correlation value to varicella
+               (0.55-0.57) — so we decided to include varicella since there
+               seemed to be a weaker relationship to the other vaccinations.<br><br>
+
+               Finally, we added the averaged percentages of all immunizations,
+               mmr, and varicella to the original county correlation heat map,
+               and for clarity removed some of the more redundant county statistics
+               (e.g. rural_urban, percent_pov_child, medHHIncome_percent_state_2017,
+               and white) as they were strongly correlated with other county
+               statistics (i.e. urban_influence, percent_pov_all, med_household_income_2017,
+               and whiteAlone respectively). The end result is pictured below.<br><br>
+
+               <img class="content-img" width = "100%" src="assets\correlation_heatmap.png" alt="correlation heatmap">
+              <br><br>
+               <h2>ML analysis</h2>
+
+                We performed a series of Machine Learning analyses, including
+                linear regressions, SVM regressions, and neural network regressions.
+                Our main goal of the analyses was to create a model, using various
+                information (features) that we gathered, to identify important
+                features and to predict the immunization rate for each school.<br><br>
+
+                We first preprocessed all the possible features that could be
+                included for the analyses.<br>
+                <ul>
+                  <li>rural_urban: Rural-Urban Continuum Codes that classifies
+                    metropolitan counties by the population size of their metro area, and nonmetropolitan counties by degree of urbanization and adjacency to a metro area.
+                  <li>high_school_degree_percent: percentage of residents in a county that receive high school degrees.
+                  <li>politics: percentage of people in a county who voted for the Democratic Party in the previous Presidential election. (From 0 to 1, 0 being more Republican-leaning, and 1 being more Democratic-leaning)
+                  <li>percent_pov_child: percentage of children in poverty in a county.
+                  <li>percent_pov_all: percentage of people in poverty in a county.
+                  <li>employment_rate: the employment rate in a county.
+                  <li>med_household_income_2017: median household income in a county.
+                  <li>white_county: percentage of white people in a county.
+                  <li>white_school: percentage of white people in a school.
+                  <li>grade_span: grade span for each school.
+                  <li>male_percent: percentage of male students in a school.
+                  <li>num_free_reduced_meals: free/reduced lunch enrollment in a school.
+                  <li>total_percent_absences: percentage of absences in a school.
+                  <li>low_income_absence_percent: percentage of absences of low income students in a school.
+                  <li>school_district: school district that a school belongs to (transformed using label encoder)
+                </ul>
+
+                And we used the immunization rate of each school as the label.
+                Because we split our data set to fit the models, our results for
+                the models were averaged values across several runs of the models.<br><br>
+
+                To begin with, we used a dummy regressor that always predicted
+                the mean of the label, which produced a baseline for our following
+                results. The result is attached below:<br><br>
+
+                <img class="content-img" width = "30%" src="assets\training_errors.png" alt="ml errors"><br><br>
+
+                Then we performed single linear regression for each of the features, and the results are shown below: <br> <br>
+
+                <img class="content-img" width = "33%" src="assets\results1.png" alt="ml errors">
+                <img class="content-img" width = "33%" src="assets\results2.png" alt="ml errors">
+                <img class="content-img" width = "33%" src="assets\results3.png" alt="ml errors"> <br>
+
+                Based on the result, although the mean squared errors for each
+                model’s test data had shown improvement compared to the baseline,
+                all results had really low R-squared values, meaning that the
+                models could not effectively predict the label. Among the features,
+                single linear regression models for white_county, white_school, and
+                num_free_reduced_meals had higher R-squared values as well as a
+                lower MSE on the testing data, implying that racial composition and
+                financial condition of students in a school may have more impact
+                on the immunization rate of schools.<br><br>
+
+                After performing single linear regressions, we then performed
+                multiple linear regressions, with the following 4 ways of choosing
+                the features:<br>
+                <ol type = "1">
+                  <li>We passed in all the features to train the model
+                  <li>We created a table with statistics for each feature, and
+                    chose the data with a p-value less than 0.05. The features
+                    that we chose included: high_school_degree_percent,
+                    percent_pov_child, employment_rate, med_household_income_2017,
+                    white_county, white_school, grade_span, num_free_reduced_meals,
+                    total_percent_absences, low_income_absence_percent, school_district.
+                    Based on the p-values, the features included multiple aspects,
+                    including financial, educational, geological, and demographic
+                    variables.<br><br>
+                    <img class="content-img" width = "30%" src="assets\linear_regression.png" alt="ml errors"> <br>
+                  <li>We used scikit learn’s SelectKBest class to find the five
+                    best features based on F-value between features and labels
+                    (which captures only linear dependency). The features included
+                    employment_rate, white_county, white_school, grade_span, and
+                    num_free_reduced_meals, which featured economic, demographic
+                    variables, as well as school types.
+                  <li>We used scikit learn’s SelectKBest class to find the five
+                    best features based on mutual information for a continuous
+                    variable (which captures both linear and nonlinear dependency).
+                    The features included politics, percent_pov_child,
+                    med_household_income_2017, white_county, and school_district,
+                    which featured economic, political, and demographic variables,
+                    as well as school types. <br>
+                    The results for the 4 models are attached below: <br>
+                    <img class="content-img" width = "30%" src="assets\4models_results.png" alt="results"> <br>
+                Multiple linear regressions demonstrated better results compared
+                to single linear regressions, and the most effective model is the
+                one which all features were considered. However, features selected
+                with F score generated lower errors which preserved the performance
+                of the model, which is reasonable because the method of linear
+                selection used focused on linear dependency.<br><br>
+
+                Because the most significant features we selected using F-test and
+                mutual information differed, we suspected that non-linear regression
+                models might generate better performance, since F-test only checked
+                linear dependency while mutual information captured the general
+                dependency of the variables. We use SVM Regression model with a
+                RBF kernel to perform non-linear regressions, and the results are
+                demonstrated below: <br><br>
+
+                <img class="content-img" width = "30%" src="assets\svm_results.png" alt="svm results"> <br>
+
+                According to the result, the SVM regression model based on features
+                selected using mutual information had a higher R-squared value and
+                lower MSE compared to linear regressions, meaning that non-linear
+                model to fit the data better. <br><br>
+
+                We also implemented neural network regression model, another
+                non-linear model, to compare the results:<br><br>
+
+                <img class="content-img" width = "50%" src="assets\neural_network.png" alt="neural net"> <br>
+
+                Surprisingly, the features selected using f-test outperformed other
+                feature selections. This was probably due to the more linear aspect
+                of the linear layers of the neural network. The result gave us the
+                lowest MSE on the testing data, but had similar performance in
+                general compared to SVM models. <br><br>
+
+                Through different ML models, we also found that non-linear models
+                gave a better prediction performance compared to linear models,
+                while the general performance could not give us an effective prediction
+                model, which might be because we did not have enough data to cover
+                different determinants, or because the relationship could not be
+                modeled in a deterministic way. <br><br>
+
+                However, through the usage of feature selection methods and comparison
+                of results given by different ML models, we found that white_school
+                was the most significant feature using f-test, and school_district
+                was the most significant feature using mutual information. The general
+                result from feature selection indicated that racial component and
+                economic conditions had most significant impacts on the prediction
+                of immunization rates, and these determining features are likely to
+                be grouped/distinguished from school-district level.<br><br>
+
+                <img class="content-img" width = "50%" src="assets\top_features.png" alt="top features"> <br>
+
+                <h2>Next Steps</h2>
+
+                Based on the current progress, our potential next steps include:<br>
+                <ul>
+                  <li>Try to create more effective prediction models;
+                  <li>Perform additional ML analysis, including clustering and classification models;
+                  <li>Find additional data that might help the ML analyses;
+                  <li>Add a visualization demonstrating the immunization situation across counties/school districts;
+                  <li>Applying prediction models to other states to check if there is a general trend among different states.
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="wrapper4" style ="background-color:#fa9581">
+    <div id="section4" class="container" style="padding-top:100px;padding-bottom:70px">
+      <a style="display:flex;justify-content:flex-end;color:#fff" data-toggle="collapse" href="#collapseBlogPost3" role="button" aria-expanded="false" aria-controls="collapseBlogPost3">
+          <h1>Final Blog Post</h1>
+      </a>
+      <div class="collapseShow" id="collapseBlogPost3">
+        <div class="card card-body" style ="background-color:#fff;">
+          <div class="blogpost" id="blog_post3">
+            <h2 align="center"> Vision </h2>
+            <h5> Our Big Idea </h5>
+            Inspired by the recent measles outbreak in Washington, we were
+            curious about what might lead to non-vaccination. Our goal was then
+            to investigate the different factors that may affect vaccination rates,
+            on a county level as well as a school-specific level. Some of the factors
+            we analyzed include urban influence, unemployment rate, median
+            household income, education level, student absent rate, racial and
+            gender demographics. <br><br>
+            <h5> Our Progress </h5>
+            While we did manage to analyze the relationships between the
+            aforementioned factors and school vaccination rates, we did not find
+            a strong relationship between certain factors and immunization rate for
+            each school to build a regression model of good performance. Namely,
+            when we visualized the correlation heatmap between vaccination rates
+            and some chosen county-level demographics, there was neither a strong
+            direct nor strong inverse relationship (correlation value was close to 0).
+            We then attempted to do single linear regression between overall
+            vaccination rate and the county-level and school-level data; however,
+            while there was improvement over the baseline (a dummy predictor
+            that always predicts the mean), the MSE was still quite high while the
+            R-squared values were quite low (highest was 0.0698) suggesting that
+            the models were not a good fit.
+            <br><br>
+            Still, we tried running a multiple linear regression. We first trained
+            the model with all the features, created a table with the statistics
+            for each feature, and then chose the features with a p-value less than
+            0.05. This ended up being high school degree percent, child poverty
+            percent, employment rate, median household income, white population
+            (county and school level), school grade span, number of free/reduced
+            meals, total absence percent, low income absence percent and school
+            district. These chosen features then covered many aspects of a school:
+            financial, educational, geographical and demographic factors. The
+            multiple linear regression model still was unable to be a good fit
+            for the data (R-squared value at 0.17), so we were unable to conclusively
+            find particular features that definitively affect a school’s vaccination rate.
+             <br><br>
+            One potential reason for these insignificant results is that our dataset
+            did not include private schools, nor did it include specific religious
+            demographics (other than the number of students who explicitly exempted
+            their vaccination based on religious reasons, which overlooked student
+            hat are influenced by their religious affiliation but choose to not
+            receive it without explicitly stating the religious concerns). Both
+            have historically been large factors in a population’s decision to
+            vaccinate or not. Future work should aim to include these types of data.
+            <br><br>
+            However, through analyses such as T-test and clustering, we do find
+            that certain factors do have an impact on the vaccination rate, in
+            particular racial demographics and the general financial and educational
+            level of the area.
+            <br><br>
+            <h2 align="center">Data</h2>
+            <h5> Our Data </h5>
+            Our data contains K-12 school vaccination data from the state of
+            Washington from the 2014-2015, 2015-2016, and 2016-2017 school years,
+            county-based data and school-based data. For county-based data
+            specifically, we had the following: <br>
+            <ul>
+              <li> rural_urban: Rural-Urban Continuum Codes that classifies metropolitan counties by the population size of their metro area, and nonmetropolitan counties by degree of urbanization and adjacency to a metro area.
+              <li> high_school_degree_percent: percentage of residents in a county that receive high school degrees.
+              <li> politics: percentage of people in a county who voted for the Democratic Party in the previous Presidential election. (From 0 to 1, 0 being more Republican-leaning, and 1 being more Democratic-leaning)
+              <li> percent_pov_child: percentage of children in poverty in a county.
+              <li> percent_pov_all: percentage of people in poverty in a county.
+              <li> employment_rate: the employment rate in a county.
+              <li> med_household_income_2017: median household income in a county.
+              <li> white_county: percentage of white people in a county.
+            </ul>
+            <br>
+            For school-based data specifically, we had the following:
+            <ul>
+              <li> white_school: percentage of white people in a school.
+              <li> grade_span: grade span for each school.
+              <li> male_percent: percentage of male students in a school.
+              <li> num_free_reduced_meals: free/reduced lunch enrollment in a school.
+              <li> total_percent_absences: percentage of absences in a school.
+              <li> low_income_absence_percent: percentage of absences of low income students in a school.
+              <li> school_district: school district that a school belongs to (transformed using label encoder)
+              <li> religious_exempt: number of students in a school that are exempt from immunization for religious reasons.
+              <li> personal_exempt: number of students in a school that are exempt from immunization for personal reasons.
+              <li> medical_exempt: number of students in a school that are exempt from immunization for medical reasons.
+            </ul>
+            <br>
+            <h5> Data Relevancy</h5>
+            Despite a large number of data entries, the information contained
+            within it wasn’t the most useful. We were unable to get a good fit
+            with the regression model, suggesting that there wasn’t enough relevant
+            data within our dataset. Likewise, we had the vaccination data for
+            three different school years, which led to a large size, but realistically
+            the vaccination data did not vary greatly over these three years.
+            In addition, we had the breakdown of different types of vaccinations
+            (e.g. varicella, MMR, etc.), but most of the vaccination rates were
+            highly correlated with each other, suggesting that many students either
+            got all their vaccinations or got none at all. At the same time, none of
+            the private school vaccination data was available, so while our overall
+            dataset was quite large, the data itself was not the most interesting and relevant.
+            <br><br>
+            <h5> Data Completeness</h5>
+            We collected our vaccination data, county data and school data from sources such as data.gov, the State of Washington, and the USDA government website. We first read in all the data from CSVs, cleaned the data by getting rid of outliers or duplicate data, and stored the relevant data in SQL tables. Then, we performed a SQL query that joined all of the county, vaccination, and school data together based on school and what county/school district the school was in. We wrote the result of the SQL query to another CSV file. This is the CSV file that we used for our ML/stats analysis and visualizations.
+            <br><br>
+            <h2 align="center"> Methodology </h2>
+            We first used scatter plots to explore the immunization data with respect to various demographic datasets. These comparisons showed the possibility of some relationships between the immunization data and certain demographics, although the results were inconclusive.  Thus, we performed a series of stats/ML analyses as well as visualization analyses to find more meaningful results. We use different techniques for each part to pick apart the data (detailed in each specific sections), but in summary they include splitting into tiers based on medians, selecting features using p-values and sklearn’s feature selection method based on f-score and mutual information, and using features that we find meaningful through our already-performed analyses.
+            <h5 align="center">Machine Learning & Statistical Analysis </h5>
+            We have two distinct statistics and Machine Learning analyses. In both analyses, we use different county-level and school-level data as features, and the immunization rate for each school as the label. For the list of features included, please refer to “Our Data” section.
+            <h5>T-test Statistical Analysis</h5>
+            To find features that might have an impact on the immunization rate, we split the dataset into 2 tiers by the 50 percentile of the immunization rate, and performed T-tests on each feature from two tiers. Our null hypothesis for each t-test is that the specific feature does not have a difference in mean between the high-immunization-rate tier and low-immunization-rate tier. We point out the features that have a one-tail p-value lower than 0.005, which means the data we observed would only occur 0.5% of the time assuming the null hypothesis is true, which means there is a strongly statistical significance for us to reject the null hypothesis and interpret that there is a significant difference in mean of this feature between the two tiers. Thus, we interpret these features might have an impact on the immunization rate for each school.
+            The features that achieve a one-tail p-value lower than 0.005 are:<br>
+            <img class="center" width = "60%" align="middle"src="assets\t-testresults.png" alt="image of csv file">
+            <br>
+            From the result, we see that demographic data has greater impact on the result, specifically population of white students in schools and number of religious exemptions. Other educational information also demonstrated strong statistical significance, such as the percentage of people receiving high school degree in the county and grade spans for schools.
+            <br><br>
+            <h5>ML Regression Analyses</h5><br>
+            We performed a series of Machine Learning analyses, including linear regressions, SVM regressions (with polynomial and RBF kernels), and neural network regressions. Our main goal of the analyses was to create a model, using various information (features) that we gathered, to identify important features and to predict the immunization rate for each school.
+            <br><br>
+            Because we split our data set to fit the models, our results for the models were averaged values across several runs of the models.
+            <br><br>
+            To begin with, we used a dummy regressor that always predicted the mean of the label, which produced a baseline for our following results. The result is attached below:
+            <br>
+            <img class="center" width = "30%"src="final_results/single_linear_result_1.png" alt="image of csv file">
+            <img class="center" width = "30%"src="final_results/single_linear_result_2.png" alt="image of csv file">
+            <img class="center" width = "30%"src="final_results/single_linear_result_3.png" alt="image of csv file">
+            <br>
+            Based on the result, although the mean squared errors for each model’s test data had shown improvement compared to the baseline, all results had really low R-squared values, meaning that the models could not effectively predict the label. Among the features, single linear regression models for white_county, white_school, and num_free_reduced_meals had higher R-squared values as well as a lower MSE on the testing data, implying that racial composition and financial condition of students in a school may have more impact on the immunization rate of schools.
+            <br><br>
+            After performing single linear regressions, we then performed multiple linear regressions, with the following 4 ways of choosing the features:
+            <br><br>
+            <ol>
+              <li>We passed in all the features to train the model
+              <li>We created a table with statistics for each feature, and chose the data with a p-value less than 0.05. The features that we chose included: urban_influence, high_school_degree_percent, percent_pov_child, politics, employment_rate, med_household_income_2017, white_county, white_school, grade_span, num_free_reduced_meals, total_percent_absences, low_income_absence_percent, school_district, religious_exempt, medical_exempt, personal_exempt. Based on the p-values, the features included multiple aspects, including financial, educational, geographical, religious, and demographic variables.<br>
+            <img class="center" width = "50%"src="final_results/multi_linear_p_values.png" alt="image of csv file"><br>
+            <li>We used scikit learn’s SelectKBest class to find the five best features based on F-value between features and labels (which captures only linear dependency). The features included religious_exempt, white_county, white_school, personal_exempt, and num_free_reduced_meals, which featured financial, racial, and religious variables.
+            <li>We used scikit learn’s SelectKBest class to find the five best features based on mutual information for a continuous variable (which captures both linear and nonlinear dependency). The features included personal_exempt, percent_pov_child, med_household_income_2017, white_county, and school_district, which featured financial, geographical, and demographic variables.
+            The results for the 4 models are attached below:<br>
+            <img class="center" width = "80%"src="final_results/multi_linear.png" alt="image of csv file"><br>
+            Multiple linear regressions demonstrated better results compared to single linear regressions, and the most effective model is the one which all features were considered. However, features selected with F score generated lower errors which preserved the performance of the model, which is reasonable because the method of linear selection used focused on linear dependency.
+            <br><br>
+            Because the most significant features we selected using F-test and mutual information differed, we suspected that non-linear regression models might generate better performance, since F-test only checked linear dependency while mutual information captured the general dependency of the variables. We use SVM Regression model with a RBF kernel and a polynomial model to perform non-linear regressions, and the results are demonstrated below:
+            <br><br>
+            <img class="center" width = "45%"src="final_results/svm_rbf.png" alt="image of csv file">
+            <img class="center" width = "45%"src="final_results/svm_poly.png" alt="image of csv file">
+            <br><br>
+            According to the result, the SVM regression model based on features selected using mutual information had a high R-squared value and low MSE, but not outperforming multiple linear regression, meaning that non-linear model does not necessarily fit the data better.
+            <br><br>
+            We also implemented neural network regression model, another non-linear model, to compare the results:
+            <br>
+            <img class="center" width = "50%"src="final_results/neural_network.png" ><br>
+            Surprisingly, the features selected using f-test outperformed other feature selections. This was probably due to the more linear aspect of the linear layers of the neural network. The result gave us the lowest MSE on the testing data, but had similar performance in general compared to SVM models.
+            <br><br>
+            Through different ML models, we also found that linear models gave a better prediction performance compared to non-linear models, while the general performance could not give us an effective prediction model, which might be because we did not have enough data to cover different determinants, or because the relationship could not be modeled in a deterministic way.
+            <br><br>
+            However, through the usage of feature selection methods and comparison of results given by different ML models, we found that white_school was the most significant feature using f-test, and school_district was the most significant feature using mutual information. The general result from feature selection indicated that racial component and financial conditions are valuable features to model the value of immunization rate.
+            <br><br>
+            <img class="center" width = "75%"src="final_results/feature_selection.png" ><br>
+            <h2 align="center">Visualization</h2>
+            We used a variety of visualization techniques to present the results of our analysis.
+            <br><br>
+            <h5>Scatterplot & Best Fit Line Visualization</h5>
+            To examine the impact of each features, we also created scatter plots for each feature and plotted the best fit lines for each dataset. Specifically, we grouped the data based on school districts to reduce the number of data points to make it visually clear, and split the data into two tiers by the median value of each feature and then ran separate single linear regressions on each half (feature value as inputs and immunization rate as labels). We then plotted the results from that analysis as a two-tiered linear regression plot, with dots and the best fit line for each tier with a specific color. Among the plots we created, we can see that number of free reduced meals, number of white students, and percent of people in poverty for each school district had demonstrated clear difference between the two tiers in terms of their distribution and the slopes of the best fit line, showing that they may have an impact on the immunization rate.
+            <br>
+            <img class="center" width = "33%"src="final_results/white_school_scatterplot.png">
+            <img class="center" width = "33%"src="final_results/percent_pov_all_scatterplot.png">
+            <img class="center" width = "33%"src="final_results/num_free_reduced_meals_scatterplot.png">
+            <h5>Clustering Scatter Plot</h5>
+            We used k-means clustering on different combinations of features in order to visualize our data. We used our cleaned and consolidated data and grouped the school data by school district. Then, we chose different combinations of features to try doing k-means clustering on in order to see what interesting results there might be and what clusters of data there were. Then, we visualized the clusters by graphing a 3D scatter plot.  Two interesting results were median household income of the county + % white students at school + immunization rate at the school, and % of child poverty of the county + # religious exemptions at the school + immunization rate at the school.
+            <br>
+            <img class="center" width = "45%"src="final_results/med_household_income_2017_white_school_scatterplot.png">
+            <img class="center" width = "45%"src="final_results/percent_pov_all_religious_exempt_scatterplot.png">
+            <br><br>
+            <h5>Map Visualization</h5>
+            We also visualized each county demographic on a map of Washington in order to explore the geographic variation in the data and look for possible patterns in the spatial orientation of each county. We used Tableau to create a heatmap overlay over the mapped county coordinates and perform visual comparisons of the county-level demographic data and immunization data averaged by county. The counties of Grey’s Harbor, Walla Walla, and Pend Oreille were removed due to insufficient immunization data for these locations. Although we found no significant correlation between the the geographic spread of the data and our immunization dataset, we cannot rule out the influence of geography on the immunization data due to the generality of our data. We were unable to map more granular data due to lack of access to spatial files of school districts and school addresses, but there is a possibility that more specific data will show a geographic relationship in our data.
+            <br><br>
+            <script type='text/javascript' src='https://10ay.online.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 800px; height: 510px;'><object class='tableauViz' width='1060' height='510'><param name='host_url' value='https%3A%2F%2F10ay.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;karentu' /><param name='name' value='TableauMaps&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='showAppBanner' value='false' /><param name='filter' value='iframeSizedToWindow=false' /></object></div>
+            Immunization Data shown on left and comparison map shown on right
+            <br><br>
+            <h5>Correlation Heatmap</h5>
+            For the final correlation heatmap, we first made two intermediary heatmaps: one for just the county-level data and one for the vaccination data. For the county-level data, we looked to see highly correlated factors (e.g. overall poverty percent and child poverty percent), in order to select factors that were not redundant for the final heatmap. This resulted in the following county-level data features in the final correlation heatmap: urban_influence, high_school_degree_percent, politics, percent_pov_all, employment_rate_2017, med_household_income_2017, and whiteAlone (i.e. white only, no Hispanic/Latinx, in contrast to white which did contain that population). For the vaccination data, we did a similar technique of generating an intermediary vaccination only heatmap to see which factors were highly correlated. We found that diphtheria, pertussis, MMR, polio, hepatitis B all had high correlation (0.91-0.97), so we chose to include only the MMR vaccination rate to represent all these vaccination rates (given its relevancy in the media) in the final heatmap. Varicella had a lower correlation to the other vaccination rates (0.55-0.57), so we also included it in the final heatmap.
+            Finally, we also included the overall vaccination rate, as they did not appear to be highly correlated with any of the individual vaccination rates (-0.27 to -0.42), so we also included this in the final heatmap. As a result the final correlation heatmap contained the aforementioned county demographics and some representative vaccination rates (overall, MMR and varicella).
+            <br><br>
+            <img class="center" width = "95%"src="final_results/correlation_heatmap.png">
+            <h2 align="center"> Results </h2>
+            Despite not being able to find a well-fitting regression model, we did find that some factors had a larger influence on school vaccination rates. Based on all of our different analyses (whose specific results and interpretations can be found in their corresponding sections), racial demographics seemed to have the highest impact on vaccination rates among all the different data features. Number of religious exemption, although not directly reflecting the religious demographics of the schools, also seemed to indicate the impact of the religious factor on school immunization. The economic informations of a county and a school (such as number of students having free reduced meals and percent of children in poverty) also appeared to have a stronger relationship to vaccination rates, but again more detailed school-specific financial data would be needed to confirm that the financial situation of a county/school would impact the vaccination rate. However, as mentioned above, future work would need to be done in order to find more relevant data (private school data, religious demographics, etc.) that may lead to a model with better performance.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
